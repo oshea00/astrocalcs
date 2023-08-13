@@ -2,8 +2,9 @@ from django.shortcuts import render
 
 from .models import Greeting
 from .forms import EasterInputForm
+from .forms import JulianInputForm
 
-from .astrocalcs import easter_date
+from .astrocalcs import easter_date, julianDate, modifiedJulianDate
 
 # Create your views here.
 
@@ -44,3 +45,23 @@ def easter_view(request):
         form = EasterInputForm()
 
     return render(request, 'easter.html', {'form': form, 'result': result})
+
+def julian_view(request):
+    result = None
+
+    if request.method == 'POST':
+        form = JulianInputForm(request.POST)
+        if form.is_valid():
+            year = form.cleaned_data['year']
+            month = form.cleaned_data['month']
+            day = form.cleaned_data['day']
+            hour = form.cleaned_data['hour']
+            minute = form.cleaned_data['minute']
+            seconds = form.cleaned_data['seconds']
+            julian = julianDate(year,month,day,hour,minute,seconds)
+            mjd = modifiedJulianDate(year,month,day,hour,minute,seconds)
+            result = f"Julian Date {julian}, MJD {mjd}"
+    else:
+        form = JulianInputForm()
+
+    return render(request, 'juliandates.html', {'form': form, 'result': result})

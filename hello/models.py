@@ -8,3 +8,11 @@ class Greeting(models.Model):
 
 class EasterInput(models.Model):
     year = models.FloatField()
+
+class JulianInput(models.Model):
+    year = models.FloatField()
+    month = models.FloatField()
+    day = models.FloatField()
+    hour = models.FloatField()
+    minute = models.FloatField()
+    seconds = models.FloatField()

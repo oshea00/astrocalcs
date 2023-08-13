@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card">
+    <h3 class="card-title">Julian Dates</h3>
+    <p class="card-text">Astronomers have chosen the fundamental epoch as Greenwich mean noon of January 1, 4713 BCE (-4712 ).
+        That is midday on the Greenwich meridian. The number of days elapsed since then are referred to as the Julian date.
+        Note that BCE years are entered as -(year BCE - 1).
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Calculate">
+    </form>
+    </div>
+
+    {% if result %}
+    <h3>{{ result }}</h3>
+    {% endif %}
+
+    <p><a href="{% url 'index' %}">Back to Home</a></p>
+
+</div>
+
+{% endblock %}
