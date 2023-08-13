@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "<5.0,>=4.2"
+gunicorn = "<22.0,>=21.2"
+dj-database-url = "<3.0,>=2.0"
+whitenoise = {version = ">=6.0,<7.0", extras = ["brotli"]}
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.4"

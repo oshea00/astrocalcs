@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from .models import Greeting
+from .forms import NumberInputForm
 
 # Create your views here.
 
@@ -26,3 +27,17 @@ def db(request):
     greetings = Greeting.objects.all()
 
     return render(request, "db.html", {"greetings": greetings})
+
+def multiply_view(request):
+    result = None
+
+    if request.method == 'POST':
+        form = NumberInputForm(request.POST)
+        if form.is_valid():
+            number1 = form.cleaned_data['number1']
+            number2 = form.cleaned_data['number2']
+            result = number1 * number2
+    else:
+        form = NumberInputForm()
+
+    return render(request, 'multiply.html', {'form': form, 'result': result})
