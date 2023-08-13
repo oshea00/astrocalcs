@@ -1,7 +1,12 @@
 from django import forms
-from .models import NumberInput
+from django.core.validators import MinValueValidator
+from .models import EasterInput
 
-class NumberInputForm(forms.ModelForm):
+class EasterInputForm(forms.ModelForm):
     class Meta:
-        model = NumberInput
-        fields = ['number1', 'number2']
+        model = EasterInput
+        fields = ['year']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['year'].validators.append(MinValueValidator(1583))

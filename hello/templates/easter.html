@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <h3>Calculate Easter</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% if result %}
+    <div class="card">
+        <h3 class="card-title">Easter {{ result }}</h3>
+        <p class="card-text">Easter day, the date to which such movable feasts as Whitsun and Trinity Sunday are fixed, is usually the first Sunday
+            after the fourteenth day after the first new Moon after March 21st. The calculation here devised in 1876 comes from <i>Butcher's Ecclesiastical Calender</i>, 
+            and is valid for all years in the Gregorian calendar from 1583 onwards.
+       </p>
+    </div>
+    {% endif %}
+
+    <p><a href="{% url 'index' %}">Back to Home</a></p>
+
+
+
+</div>
+
+{% endblock %}

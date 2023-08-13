@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 from .models import Greeting
-from .forms import NumberInputForm
+from .forms import EasterInputForm
+
+from .astrocalcs import easter_date
 
 # Create your views here.
 
@@ -28,16 +30,17 @@ def db(request):
 
     return render(request, "db.html", {"greetings": greetings})
 
-def multiply_view(request):
+def easter_view(request):
     result = None
 
     if request.method == 'POST':
-        form = NumberInputForm(request.POST)
+        form = EasterInputForm(request.POST)
         if form.is_valid():
-            number1 = form.cleaned_data['number1']
-            number2 = form.cleaned_data['number2']
-            result = number1 * number2
+            year = form.cleaned_data['year']
+            m, day = easter_date(year)
+            month = "March" if m==3 else "April" 
+            result = f"Sunday, {month} {int(day)}, {int(year)}"
     else:
-        form = NumberInputForm()
+        form = EasterInputForm()
 
-    return render(request, 'multiply.html', {'form': form, 'result': result})
+    return render(request, 'easter.html', {'form': form, 'result': result})
